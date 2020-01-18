@@ -1,0 +1,98 @@
+body {
+  background: snow;
+  color: #111;
+  line-height: 1.5;
+}
+
+a {
+  color: #ff487a;
+  transition: color 0.3s ease-in-out;
+  -moz-transition: color 0.3s ease-in-out;
+  text-decoration: underline;
+  -webkit-text-decoration-skip: ink;
+  text-decoration-skip: ink;
+  font-weight: bold;
+}
+
+a:hover {
+  -webkit-animation: colorin 3s infinite;
+  -moz-animation: colorin 3s infinite;
+  animation: colorin 3s infinite;
+}
+
+@-webkit-keyframes colorin {
+  0%, 100% { color: #6d6e71; }
+  16%      { color: #25ABE2; }
+  32%      { color: #6983C0; }
+  48%      { color: #EA75BC; }
+  64%      { color: #D14A95; }
+  80%      { color: #DE0975; }
+}
+
+@-moz-keyframes colorin {
+  0%, 100% { color: #6d6e71; }
+  16%      { color: #25ABE2; }
+  32%      { color: #6983C0; }
+  48%      { color: #EA75BC; }
+  64%      { color: #D14A95; }
+  80%      { color: #DE0975; }
+}
+
+@keyframes colorin {
+  0%, 100% { color: #6d6e71; }
+  16%      { color: #25ABE2; }
+  32%      { color: #6983C0; }
+  48%      { color: #EA75BC; }
+  64%      { color: #D14A95; }
+  80%      { color: #DE0975; }
+}
+
+.links {
+  list-style: none;
+  padding-left: 3rem;
+  line-height:  1.75;
+}
+
+.social-link {
+  text-decoration: none;
+  color: #6d6e71;
+}
+
+.container {
+  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir,
+    'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial,
+    sans-serif;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.main {
+  padding: 2rem 3rem;
+  max-width: 30rem;
+}
+
+.avatar {
+  width: 10rem;
+  border-radius: 50%;
+}
+
+.meta {
+  display: flex;
+  padding: 2rem 2rem 0;
+}
+
+@media (min-width: 600px) {
+  .container {
+    display: flex;
+  }
+
+  .meta {
+    width: 25%;
+    flex-direction:  column;
+  }
+
+  .main {
+    width: 75%;
+    padding: 2rem;
+  }
+}
