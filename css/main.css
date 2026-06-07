@@ -1,99 +1,226 @@
-body {
-  background: snow;
-  color: #111;
-  line-height: 1.5;
+/* ===========================================================================
+   menor.pro — Swiss grid meets woodtype slab
+   Display: Bevan (Clarendon slab). Body: Inter. Monochrome on warm paper.
+   ========================================================================= */
+
+@font-face {
+  font-family: "Bevan";
+  src: url("fonts/bevan-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #f1ede3;
+  --ink: #17150f;
+  --muted: #6b665a;
+  --rule: #17150f;
+  --gap: clamp(1.5rem, 4vw, 3rem);
+  /* Woodtype display: warm brown, tilted so the right end rises.
+     Negative tilt = end up. Dial toward -15deg for a steeper lean. */
+  --display-color: #6b3a21;
+  --tilt: -8deg;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 3rem) var(--gap) clamp(2rem, 5vw, 4rem);
+}
+
+/* --- Rules: the Swiss skeleton ----------------------------------------- */
+
+.rule {
+  border: 0;
+  border-top: 3px solid var(--rule);
+  margin: clamp(1rem, 2.5vw, 1.75rem) 0;
+}
+
+.rule--thin {
+  border-top-width: 1px;
+}
+
+/* --- Top bar ----------------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wordmark {
+  font-family: "Bevan", Georgia, serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(0.75rem, 2.5vw, 2rem);
+}
+
+.nav a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* --- Hero: the woodtype moment ----------------------------------------- */
+
+.hero {
+  display: grid;
+  /* minmax(0,1fr): the oversized display must not stretch the track,
+     or it shoves the right-aligned subtitle off-screen into the clip. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(2rem, 6vw, 5rem) 0 clamp(0.5rem, 2vw, 1.5rem);
+  /* Hard-cut the tilted display where it crosses into the rules above/below. */
+  overflow: hidden;
+}
+
+.display {
+  margin: 0;
+  font-family: "Bevan", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3.75rem, 19.5vw, 15.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--display-color);
+  /* Left-anchored: bigger type grows to the right, left edge stays put. */
+  text-align: left;
+  transform: rotate(var(--tilt));
+  transform-origin: 0 50%;
+}
+
+/* Tighten the O in MENOR on both sides: pull it toward N, pull R toward it. */
+.kern-o {
+  margin-left: -0.05em;
+  margin-right: -0.05em;
+}
+
+.lede {
+  /* Close the header→subheader gap by 40px (also lifts everything below). */
+  margin: -40px 0 0;
+  max-width: 34ch;
+  justify-self: end;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* --- Content blocks: label in the margin, body in the column ----------- */
+
+.block {
+  display: grid;
+  grid-template-columns: minmax(7rem, 14rem) 1fr;
+  gap: var(--gap);
+  align-items: start;
+  padding: clamp(1rem, 2.5vw, 1.75rem) 0;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.body {
+  max-width: 46ch;
+}
+
+.body p {
+  margin: 0 0 0.75rem;
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* --- Links: inverse-highlight hover, no rainbow ------------------------ */
 
 a {
-  color: #ff487a;
-  transition: color 0.3s ease-in-out;
-  -moz-transition: color 0.3s ease-in-out;
+  color: var(--ink);
   text-decoration: underline;
-  -webkit-text-decoration-skip: ink;
-  text-decoration-skip: ink;
-  font-weight: bold;
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 1px;
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
 
-a:hover {
-  -webkit-animation: colorin 3s infinite;
-  -moz-animation: colorin 3s infinite;
-  animation: colorin 3s infinite;
-}
-
-@-webkit-keyframes colorin {
-  0%, 100% { color: #6d6e71; }
-  16%      { color: #25ABE2; }
-  32%      { color: #6983C0; }
-  48%      { color: #EA75BC; }
-  64%      { color: #D14A95; }
-  80%      { color: #DE0975; }
-}
-
-@-moz-keyframes colorin {
-  0%, 100% { color: #6d6e71; }
-  16%      { color: #25ABE2; }
-  32%      { color: #6983C0; }
-  48%      { color: #EA75BC; }
-  64%      { color: #D14A95; }
-  80%      { color: #DE0975; }
-}
-
-@keyframes colorin {
-  0%, 100% { color: #6d6e71; }
-  16%      { color: #25ABE2; }
-  32%      { color: #6983C0; }
-  48%      { color: #EA75BC; }
-  64%      { color: #D14A95; }
-  80%      { color: #DE0975; }
-}
-
-.links {
-  list-style: none;
-  padding-left: 3rem;
-  line-height:  1.75;
-}
-
-.social-link {
+.body a:hover,
+.lede a:hover {
+  background: var(--ink);
+  color: var(--paper);
   text-decoration: none;
-  color: #6d6e71;
 }
 
-.container {
-  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir,
-    'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial,
-    sans-serif;
-  max-width: 60rem;
-  margin: 0 auto;
+.nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
 }
 
-.main {
-  padding: 2rem 3rem;
-  max-width: 30rem;
-}
+/* --- Footer ------------------------------------------------------------ */
 
-.avatar {
-  width: 10rem;
-  height: 10rem;
-  border-radius: 50%;
-}
-
-.meta {
+.footer {
   display: flex;
-  padding: 2rem 2rem 0;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-@media (min-width: 600px) {
-  .container {
-    display: flex;
+/* --- Mobile: collapse the margin-label grid ---------------------------- */
+
+@media (max-width: 38rem) {
+  .block {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 
-  .meta {
-    width: 25%;
-    flex-direction:  column;
-  }
-
-  .main {
-    width: 75%;
-    padding: 2rem;
+  .lede {
+    justify-self: start;
   }
 }

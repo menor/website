@@ -2,53 +2,89 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Professional website for José Menor, sooftware plumber, ex-graphic designer" />
+    <meta
+      name="description"
+      content="Jose Menor — frontend and tooling engineer moving into AI tooling: the tools and harnesses agents use, and the product layer around them."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>José Menor</title>
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <div class="container">
-      <header class="meta">
-        <img
-          class="avatar"
-          src="imgs/menor-avatar.png"
-          alt="José Menor Avatar"
-        />
-        <ul class="links">
-          <li>
-            <a class="social-link" href="https://github.com/menor">Github</a>
-          </li>
-          <li>
-            <a class="social-link" href="https://www.linkedin.com/in/josemenor/"
-              >LinkedIn</a
-            >
-          </li>
-          <li>
-            <a class="social-link" href="https://twitter.com/menor">Twitter</a>
-          </li>
-          <li>
-            <a class="social-link" href="mailto:josemenor@gmail.com">Email</a>
-          </li>
-        </ul>
+    <div class="page">
+      <header class="topbar">
+        <span class="wordmark">JM</span>
+        <nav class="nav">
+          <a href="https://github.com/menor">GitHub</a>
+          <a href="https://www.linkedin.com/in/josemenor/">LinkedIn</a>
+          <a href="mailto:web@menor.pro">Email</a>
+        </nav>
       </header>
-      <section class="main">
-        <h1>Hola, I'm José Menor</h1>
-        <h4>I am a software plumber</h4>
-        <p>
-          I am a spanish living in Berlin, I work as a fullstack developer at
-          <a href="https://ada.com">ada health</a>, where I deal with node.js,
-          restful and graphql APIs and some frontend integrations of their app.
-        </p>
-        <p>
-          Before that I have been a frontend developer, web designer, and
-          graphic designer. You can download a
-          <a href="./static/jose-menor-cv-2020.pdf">complete CV</a> if you want
-          to know more, or just send me an
-          <a href="mailto:josemenor@gmail.com">email</a>.
+
+      <hr class="rule" />
+
+      <section class="hero">
+        <h1 class="display">José<br />Men<span class="kern-o">o</span>r</h1>
+        <p class="lede">
+          Frontend and tooling engineer moving into AI tooling — the tools and
+          harnesses agents use, and the product layer around them.
         </p>
       </section>
+
+      <hr class="rule" />
+
+      <main class="content">
+        <section class="block">
+          <p class="label">Now</p>
+          <div class="body">
+            <p>
+              I'm learning this in the open. Coming from years of frontend,
+              frontend build systems, and Node.js backends, I'm focused on what
+              makes a tool actually usable by an agent: schema-first discovery,
+              deterministic output, structured errors it can recover from.
+              <a href="https://heysol.dev">Sol</a> is where I'm working it out.
+            </p>
+          </div>
+        </section>
+
+        <hr class="rule rule--thin" />
+
+        <section class="block">
+          <p class="label">Building</p>
+          <div class="body">
+            <p>
+              <a href="https://github.com/menor/sol">Sol</a> — the agent toolset
+              for Upsun. The tool layer an agent or harness calls to operate the
+              platform. Schema-first, token-efficient, built to be called, not
+              read. → <a href="https://heysol.dev">heysol.dev</a>
+            </p>
+            <p class="muted">More agent-tooling work landing through 2026.</p>
+          </div>
+        </section>
+
+        <hr class="rule rule--thin" />
+
+        <section class="block">
+          <p class="label">Background</p>
+          <div class="body">
+            <p>
+              Years across frontend, frontend build systems, and Node.js
+              backends. The build-tooling side maps closely to agent tooling;
+              the Node and TypeScript side to MCP and SDK work; the frontend to
+              the product layer — so the plan is to build AI products end to
+              end, the tooling and the interface people actually use.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <hr class="rule" />
+
+      <footer class="footer">
+        <span>menor.pro</span>
+        <span>José Menor — 2026</span>
+      </footer>
     </div>
   </body>
 </html>
