@@ -1,63 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import AboutContent from "../components/AboutContent.astro";
 ---
 
 <Base
   title="José Menor"
   description="Jose Menor — frontend and tooling engineer moving into AI tooling: the tools and harnesses agents use, and the product layer around them."
 >
-  <section class="hero">
-    <h1 class="display">José<br />Men<span class="kern-o">o</span>r</h1>
-    <p class="lede">
-      Frontend and tooling engineer moving into AI tooling — the tools and
-      harnesses agents use, and the product layer around them.
-    </p>
-  </section>
-
-  <hr class="rule" />
-
-  <main id="main" class="content">
-    <section class="block">
-      <p class="label">Now</p>
-      <div class="body">
-        <p>
-          I'm learning this in the open. Coming from years of frontend,
-          frontend build systems, and Node.js backends, I'm focused on what
-          makes a tool actually usable by an agent: schema-first discovery,
-          deterministic output, structured errors it can recover from.
-          <a href="https://heysol.dev">Sol</a> is where I'm working it out.
-        </p>
-      </div>
-    </section>
-
-    <hr class="rule rule--thin" />
-
-    <section class="block">
-      <p class="label">Building</p>
-      <div class="body">
-        <p>
-          <a href="https://github.com/menor/sol">Sol</a> — the agent toolset
-          for Upsun. The tool layer an agent or harness calls to operate the
-          platform. Schema-first, token-efficient, built to be called, not
-          read. → <a href="https://heysol.dev">heysol.dev</a>
-        </p>
-        <p class="muted">More agent-tooling work landing through 2026.</p>
-      </div>
-    </section>
-
-    <hr class="rule rule--thin" />
-
-    <section class="block">
-      <p class="label">Background</p>
-      <div class="body">
-        <p>
-          Years across frontend, frontend build systems, and Node.js
-          backends. The build-tooling side maps closely to agent tooling;
-          the Node and TypeScript side to MCP and SDK work; the frontend to
-          the product layer — so the plan is to build AI products end to
-          end, the tooling and the interface people actually use.
-        </p>
-      </div>
-    </section>
-  </main>
+  <AboutContent />
 </Base>

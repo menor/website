@@ -8,6 +8,7 @@ export const strings = {
   en: {
     skip: "Skip to content",
     blog: "Blog",
+    about: "About",
     blogIntro: "Notes on agent tooling, learned in the open.",
     noPosts: "No posts yet.",
     allPosts: "All posts",
@@ -18,6 +19,7 @@ export const strings = {
   es: {
     skip: "Saltar al contenido",
     blog: "Blog",
+    about: "Sobre mí",
     blogIntro: "Notas sobre herramientas para agentes, aprendiendo en abierto.",
     noPosts: "Todavía no hay artículos.",
     allPosts: "Todos los artículos",

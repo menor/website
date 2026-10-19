@@ -12,9 +12,17 @@ interface Props {
   lang?: Lang;
   // Every language version of this page, this one included.
   alternates?: Alternate[];
+  // Path of the original when this page duplicates another one.
+  canonical?: string;
 }
 
-const { title, description, lang = "en", alternates = [] } = Astro.props;
+const {
+  title,
+  description,
+  lang = "en",
+  alternates = [],
+  canonical = Astro.url.pathname,
+} = Astro.props;
 const t = strings[lang];
 const abs = (path: string) => new URL(path, Astro.site).href;
 const xDefault = alternates.find((a) => a.lang === "en");
@@ -27,7 +35,7 @@ const xDefault = alternates.find((a) => a.lang === "en");
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="canonical" href={abs(Astro.url.pathname)} />
+    <link rel="canonical" href={abs(canonical)} />
     {
       alternates.length > 1 &&
         alternates.map((a) => (
@@ -49,6 +57,9 @@ const xDefault = alternates.find((a) => a.lang === "en");
         <a class="wordmark" href="/" aria-label="José Menor">JM</a>
         <nav class="nav">
           <a href={blogUrl(lang)}>{t.blog}</a>
+          <a href="/about/" hreflang={lang === "en" ? undefined : "en"}>
+            {t.about}
+          </a>
           <a href="https://github.com/menor">GitHub</a>
           <a href="https://www.linkedin.com/in/josemenor/">LinkedIn</a>
           <a href="mailto:web@menor.pro">Email</a>
@@ -57,7 +68,9 @@ const xDefault = alternates.find((a) => a.lang === "en");
 
       <hr class="rule" />
 
-      <slot />
+      <div class="page-body">
+        <slot />
+      </div>
 
       <hr class="rule" />
 
