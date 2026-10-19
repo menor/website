@@ -1,0 +1,10 @@
+# Private working notes (repo is public)
+*.local.md
+
+# Astro
+node_modules/
+dist/
+.astro/
+
+# OS
+.DS_Store
