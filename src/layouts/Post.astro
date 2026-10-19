@@ -1,0 +1,69 @@
+---
+import { render } from "astro:content";
+import Base from "./Base.astro";
+import {
+  blogUrl,
+  formatDate,
+  postLang,
+  postUrl,
+  strings,
+  type Post,
+} from "../lib/blog";
+
+interface Props {
+  post: Post;
+  twin?: Post;
+}
+
+const { post, twin } = Astro.props;
+const { title, description, pubDate, updatedDate } = post.data;
+const lang = postLang(post);
+const t = strings[lang];
+const twinLang = twin && postLang(twin);
+const { Content } = await render(post);
+
+const alternates = [{ lang, url: postUrl(post) }];
+if (twin && twinLang) alternates.push({ lang: twinLang, url: postUrl(twin) });
+---
+
+<Base
+  title={`${title} — José Menor`}
+  description={description}
+  lang={lang}
+  alternates={alternates}
+>
+  <main id="main" class="content">
+    <article class="post">
+      <header class="post-header">
+        <p class="label"><a href={blogUrl(lang)}>{t.allPosts}</a></p>
+        <h1 class="post-title">{title}</h1>
+        <p class="post-meta">
+          <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+          {
+            updatedDate && (
+              <>
+                {" · "}
+                {t.updated}{" "}
+                <time datetime={updatedDate.toISOString()}>
+                  {formatDate(updatedDate, lang)}
+                </time>
+              </>
+            )
+          }
+        </p>
+        {
+          twin && twinLang && (
+            <p class="post-twin">
+              <a href={postUrl(twin)} hreflang={twinLang} lang={twinLang}>
+                {strings[twinLang].readIn}
+              </a>
+            </p>
+          )
+        }
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </main>
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import {
+  blogUrl,
+  formatDate,
+  getAllPosts,
+  postLang,
+  postUrl,
+  strings,
+  type Lang,
+} from "../lib/blog";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = strings[lang];
+const posts = (await getAllPosts()).filter((p) => postLang(p) === lang);
+---
+
+<Base
+  title={`${t.blog} — José Menor`}
+  description={t.blogIntro}
+  lang={lang}
+  alternates={[
+    { lang: "en", url: blogUrl("en") },
+    { lang: "es", url: blogUrl("es") },
+  ]}
+>
+  <main id="main" class="content">
+    <section class="block">
+      <h1 class="label">{t.blog}</h1>
+      <div class="body">
+        <p class="muted">{t.blogIntro}</p>
+        {
+          posts.length === 0 ? (
+            <p>{t.noPosts}</p>
+          ) : (
+            <ul class="post-list">
+              {posts.map((post) => (
+                <li>
+                  <a href={postUrl(post)}>{post.data.title}</a>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate, lang)}
+                  </time>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,0 +1,70 @@
+---
+import { blogUrl, strings, type Lang } from "../lib/blog";
+
+export interface Alternate {
+  lang: Lang;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  // Every language version of this page, this one included.
+  alternates?: Alternate[];
+}
+
+const { title, description, lang = "en", alternates = [] } = Astro.props;
+const t = strings[lang];
+const abs = (path: string) => new URL(path, Astro.site).href;
+const xDefault = alternates.find((a) => a.lang === "en");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="canonical" href={abs(Astro.url.pathname)} />
+    {
+      alternates.length > 1 &&
+        alternates.map((a) => (
+          <link rel="alternate" hreflang={a.lang} href={abs(a.url)} />
+        ))
+    }
+    {
+      alternates.length > 1 && xDefault && (
+        <link rel="alternate" hreflang="x-default" href={abs(xDefault.url)} />
+      )
+    }
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <div class="page">
+      <header class="topbar">
+        <a class="wordmark" href="/" aria-label="José Menor">JM</a>
+        <nav class="nav">
+          <a href={blogUrl(lang)}>{t.blog}</a>
+          <a href="https://github.com/menor">GitHub</a>
+          <a href="https://www.linkedin.com/in/josemenor/">LinkedIn</a>
+          <a href="mailto:web@menor.pro">Email</a>
+        </nav>
+      </header>
+
+      <hr class="rule" />
+
+      <slot />
+
+      <hr class="rule" />
+
+      <footer class="footer">
+        <span>menor.pro</span>
+        <span>José Menor — 2026</span>
+      </footer>
+    </div>
+  </body>
+</html>
