@@ -352,8 +352,11 @@ a {
 }
 
 .prose img {
+  display: block;
   max-width: 100%;
   height: auto;
+  /* Frames white screenshots against the paper background. */
+  border: 1px solid var(--muted);
 }
 
 .prose code {
