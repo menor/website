@@ -44,6 +44,15 @@ Put the files in `src/content/blog/images/<post>/`, shared by both language vers
 ![Pantalla de aprobación que avisa de que el borrado elimina todos los archivos de audio](../images/my-post/approval.png)
 ```
 
+For a caption, put an italic line directly under the image, with no blank line between. It becomes a `<figure>` with a `<figcaption>`:
+
+```md
+![Alt text: what the image shows](../images/my-post/approval.png)
+*Caption: why it matters.*
+```
+
+Footnotes use `text[^id]` and, at the end of the post, `[^id]: The note.` Spanish posts get Spanish footnote labels.
+
 The build converts them to WebP in several sizes and adds `width`, `height` and lazy loading. A wrong path fails the build.
 
 Static files (CSS, fonts, `CNAME`) live in `public/` and are copied as they are.
