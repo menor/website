@@ -10,6 +10,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: { theme: "github-light" },
   },
+  // Markdown images get a srcset, so phones download smaller files.
+  image: { layout: "constrained" },
   devToolbar: { enabled: false },
   // The minifier drops spaces before inline links in templates ("from.Sol").
   compressHTML: false,

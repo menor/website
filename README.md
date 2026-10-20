@@ -32,4 +32,18 @@ draft: true               # optional; hidden from the live site
 
 Posts with the same `translationKey` link to each other ("Leer en español" / "Read in English"). The build fails if a `translationKey` has no match in the other language.
 
-Static files (CSS, fonts, images, `CNAME`) live in `public/` and are copied as they are.
+## Add images to a post
+
+Put the files in `src/content/blog/images/<post>/`, shared by both language versions. Reference them with a relative path and write the alt text in the post's language:
+
+```md
+<!-- en/my-post.md -->
+![Approval screen warning that the wipe deletes all audio files](../images/my-post/approval.png)
+
+<!-- es/mi-articulo.md -->
+![Pantalla de aprobación que avisa de que el borrado elimina todos los archivos de audio](../images/my-post/approval.png)
+```
+
+The build converts them to WebP in several sizes and adds `width`, `height` and lazy loading. A wrong path fails the build.
+
+Static files (CSS, fonts, `CNAME`) live in `public/` and are copied as they are.
