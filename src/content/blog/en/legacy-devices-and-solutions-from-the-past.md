@@ -15,7 +15,7 @@ The idea behind [Durable Objects](https://developers.cloudflare.com/durable-obje
 
 ## Looking at solutions from the past for today's problems
 
-Running agents creates new problems on the interface, since we need a way to make the user aware of these long running processes, what is the status, how far they are from completion, if they failed, and also ask the user for approval in case of destructive actions.
+Running agents creates new problems on the interface, since we need a way to make the user aware of these long running processes, what is the status, how far they are from completion, if they failed, and also to ask the user for approval in case of destructive actions.
 
 I am a big fan of looking at how people looked at similar problems in the past, and I found [Bainbridge's 1983 paper, Ironies of Automation](https://doi.org/10.1016/0005-1098(83)90046-8). It is about industrial control, things like chemical plants and aircraft, but the problem is the same as the one we have now. Long processes that are automated but may require human intervention when something goes wrong.
 
@@ -23,9 +23,9 @@ Bainbridge basically says that when you automate a process, the machine takes th
 
 Her solutions are to make systems fail obviously instead of quietly hiding problems, to show the state so a person can understand it at a glance when they come back, to not ask people to approve or check things they have no way of checking, and to keep the human in practice so they can still take over when it matters.
 
-## Having fun with legacy devices, and pretending to be researching
+## Having fun with legacy devices, and pretending to research
 
-I decided to reuse a project of mine that syncs my [Plex](https://www.plex.tv) playlists to my iPod (yes, an iPod in 2026 is hip again) since those kinds of processes are similar to what agents do. Plex is a media server app that I use mostly to host and serve my MP3 collection. I also use [Jellyfin](https://jellyfin.org), which is open source, and my plan is to make this also work with Jellyfin down the road.
+I decided to reuse a project of mine that syncs my [Plex](https://www.plex.tv) playlists to my iPod (yes, an iPod in 2026 is hip again, thank you enshittification) since those kinds of processes are similar to what agents do. Plex is a media server app that I use mostly to host and serve my MP3 collection. I also use [Jellyfin](https://jellyfin.org), which is open source, and my plan is to make this also work with Jellyfin down the road.
 
 I already built [podscribe](https://github.com/menor/podscribe), a library that allows you to upload music to an iPod since it knows how to write the database iPods use. I have that wrapped in a command line script that (as of now) gets the name of a Plex playlist as an input, backs up the iPod database, wipes the iPod, downloads the music files, uploads them to the iPod and updates the internal iPod database.
 
@@ -43,9 +43,21 @@ After thinking about it, the architecture for an MVP is the following one:
     - Downloads the music files
     - Uploads them to the iPod and updates the iPod database
 
+![Sync form with the Plex playlist field set to Soulazo, the iPod folder set to ./fake-ipod, and a Show plan button](../images/legacy-devices/01-form.png)
+*Step 1: choose a playlist and the iPod folder. Nothing touches the iPod yet.*
+
+![Plan for the Soulazo playlist: copy 38 tracks (304 MB) and erase the 3 tracks now on the iPod. A red warning says the backup saves the track list only, not the songs. The button reads Erase iPod and sync 38 tracks](../images/legacy-devices/02-confirmation.png)
+*Step 2: the plan. The job stops here until you approve, and the warning says what the backup can't undo.*
+
 The interesting part here was the job id. The browser listens on `/jobs/:id/events`, and every message carries the full state of the job. The first message is always the current state, so the screen is never out of date.
 
+![Sync in progress under a red warning: Do not unplug the iPod. Downloading track 24 of 38, Suspicion, with 23 tracks copied, 165 MB, 0 failures and 0 retries](../images/legacy-devices/03-progress.png)
+*During the sync, every message carries the full state, so the screen is right even after a reconnect.*
+
 The user then can close the browser tab and come back later, and she will be presented with the status of the job. `/jobs/latest` finds the job again. The server is the one owning the job and its status.
+
+![Sync finished: old music erased and all 38 new tracks on the iPod. Safe to unplug after you eject it in Finder. 0 failures and 0 retries](../images/legacy-devices/04-sync-finished.png)
+*The end screen answers what you need when you come back: what is on the iPod, and if it is safe to unplug.[^size]*
 
 One difference with a real Durable Object: my job lives in the server's memory, so if I restart the server, the job is gone. A Durable Object keeps its state even while it sleeps.
 
@@ -73,3 +85,5 @@ I went back to Bainbridge and checked her solutions against what I was building:
 My favorite part is that the tests ended up reading like rules for being honest about the iPod: "a failure while wiping says the state is unknown", "does not claim old music was erased when the iPod was empty", "only phases that touch the iPod say do not unplug".
 
 This is still an early version, but it has been fun to explore. It already has a preview, an approval step, an end screen and 27 passing tests. For now I am just using a test folder and not touching the iPod yet, but I wanted to write about it while it is still fresh. Stay tuned for more on this topic. I am not hosting a demo of this anywhere, because I would have to make my Plex library public and everyone would find guilty pleasures I have in my music library like the [Xanadu soundtrack](https://en.wikipedia.org/wiki/Xanadu_(soundtrack)) by ELO and Olivia Newton-John 😅
+
+[^size]: To fix: the plan says 304 MB, but the end screen says 258.7 MB copied. The two numbers should match, or the plan should say its number is an estimate.
