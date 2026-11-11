@@ -1,6 +1,6 @@
 /* ===========================================================================
    menor.pro — Swiss grid meets woodtype slab
-   Display: Bevan (Clarendon slab). Body: Inter. Dark ink on light pink (#FFC8D1, a tint of #FF91A4).
+   Display: Bevan (Clarendon slab). Body: Inter. Dark ink; page fades from light pink (#FFC8D1, a tint of #FF91A4) to off-white.
    ========================================================================= */
 
 @font-face {
@@ -20,7 +20,8 @@
 }
 
 :root {
-  --paper: #ffc8d1; /* ink 12.5:1, muted 9.5:1, display 9.3:1 on this */
+  --paper: #fffaf7; /* off-white; ink 17:1 */
+  --accent: #ffc8d1; /* top of the gradient; ink 12.5:1, muted 9.5:1, display 9.3:1 */
   --ink: #17150f;
   --muted: #4a1f2a;
   --rule: #17150f;
@@ -41,7 +42,16 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background-color: var(--paper);
+  /* Pink fills the heading block, then fades to off-white. Stops scale with
+     the width because the display type does; px caps match the 72rem page. */
+  background-image: linear-gradient(
+    to bottom,
+    var(--accent) 0,
+    var(--accent) min(40vw, 480px),
+    var(--paper) min(72vw, 870px)
+  );
+  background-repeat: no-repeat;
   color: var(--ink);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif;
@@ -233,6 +243,8 @@ a {
 
   .lede {
     justify-self: start;
+    /* Left-aligned, the tagline sits under the M. Drop the pull-up. */
+    margin: 0.5rem 0 0;
   }
 }
 
