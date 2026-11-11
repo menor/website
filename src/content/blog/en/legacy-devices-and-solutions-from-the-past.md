@@ -5,7 +5,7 @@ pubDate: 2026-10-19
 translationKey: legacy-devices
 ---
 
-With the advance of AI, as a frontend engineer I see that my value is no longer about writing code, but more about what brings value to a product, and how to structure solutions to bring that value. One of those things could be figuring out how to make it easier for humans to supervise AI agents.
+With the advance of AI, as a frontend engineer I see that my value sits less in typing code and more in deciding what brings value to a product, and how to structure solutions to bring that value. One of those things could be figuring out how to make it easier for humans to supervise AI agents.
 
 ## The trigger: Deno acquired by Cloudflare
 

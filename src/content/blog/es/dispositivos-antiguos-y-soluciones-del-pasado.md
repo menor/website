@@ -5,7 +5,7 @@ pubDate: 2026-10-19
 translationKey: legacy-devices
 ---
 
-Con el avance de la IA, como ingeniero frontend veo que mi valor ya no está en escribir código, sino en lo que aporta valor a un producto y en cómo estructurar las soluciones para aportar ese valor. Una de esas cosas podría ser averiguar cómo hacer más fácil que las personas supervisen agentes de IA.
+Con el avance de la IA, como ingeniero frontend veo que mi valor está menos en teclear código y más en decidir qué aporta valor a un producto y cómo estructurar las soluciones para aportar ese valor. Una de esas cosas podría ser averiguar cómo hacer más fácil que las personas supervisen agentes de IA.
 
 ## La chispa: Cloudflare compra Deno
 
