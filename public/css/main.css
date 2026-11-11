@@ -1,6 +1,6 @@
 /* ===========================================================================
    menor.pro — Swiss grid meets woodtype slab
-   Display: Bevan (Clarendon slab). Body: Inter. Monochrome on warm paper.
+   Display: Bevan (Clarendon slab). Body: Inter. Dark ink on light pink (#FFC8D1, a tint of #FF91A4).
    ========================================================================= */
 
 @font-face {
@@ -20,14 +20,14 @@
 }
 
 :root {
-  --paper: #f1ede3;
+  --paper: #ffc8d1; /* ink 12.5:1, muted 9.5:1, display 9.3:1 on this */
   --ink: #17150f;
-  --muted: #6b665a;
+  --muted: #4a1f2a;
   --rule: #17150f;
   --gap: clamp(1.5rem, 4vw, 3rem);
-  /* Woodtype display: warm brown, tilted so the right end rises.
+  /* Woodtype display: deep burgundy, tilted so the right end rises.
      Negative tilt = end up. Dial toward -15deg for a steeper lean. */
-  --display-color: #6b3a21;
+  --display-color: #5c0f26;
   --tilt: -8deg;
 }
 
